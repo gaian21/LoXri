@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Investment Return Calculator - LoXri</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <style>
+        .formula-display {
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+            font-family: monospace;
+            text-align: center;
+        }
+        
+        .error {
+            color: #dc3545;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body data-lang="en">
+    <div class="container">
+        <header>
+            <div class="language-switch">
+                <button class="language-btn active" onclick="switchLanguage('en')" title="English">
+                    <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2MCAzMCI+PHJlY3Qgd2lkdGg9IjYwIiBoZWlnaHQ9IjMwIiBmaWxsPSIjMDAyNDdkIi8+PHBhdGggZD0iTTAsMGw2MCwzMG0wLTMwTDAsMzAiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLXdpZHRoPSI2Ii8+PHBhdGggZD0iTTAsMGw2MCwzMG0wLTMwTDAsMzAiIHN0cm9rZT0iI2NmMTQyYiIgc3Ryb2tlLXdpZHRoPSIyIi8+PHBhdGggZD0iTTMwLDBWMzBNMCwxNWg2MCIgc3Ryb2tlPSIjZmZmIiBzdHJva2Utd2lkdGg9IjEwIi8+PHBhdGggZD0iTTMwLDBWMzBNMCwxNWg2MCIgc3Ryb2tlPSIjY2YxNDJiIiBzdHJva2Utd2lkdGg9IjYiLz48L3N2Zz4=" alt="English">
+                </button>
+                <button class="language-btn" onclick="switchLanguage('el')" title="Ελληνικά">
+                    <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNyAxOCI+PHJlY3Qgd2lkdGg9IjI3IiBoZWlnaHQ9IjE4IiBmaWxsPSIjMDA1YmFlIi8+PHJlY3QgeT0iMiIgd2lkdGg9IjI3IiBoZWlnaHQ9IjIiIGZpbGw9IiNmZmYiLz48cmVjdCB5PSI2IiB3aWR0aD0iMjciIGhlaWdodD0iMiIgZmlsbD0iI2ZmZiIvPjxyZWN0IHk9IjEwIiB3aWR0aD0iMjciIGhlaWdodD0iMiIgZmlsbD0iI2ZmZiIvPjxyZWN0IHk9IjE0IiB3aWR0aD0iMjciIGhlaWdodD0iMiIgZmlsbD0iI2ZmZiIvPjxyZWN0IHdpZHRoPSIxMCIgaGVpZ2h0PSIxMCIgZmlsbD0iI2ZmZiIvPjxyZWN0IHk9IjQiIHdpZHRoPSIxMCIgaGVpZ2h0PSIyIiBmaWxsPSIjMDA1YmFlIi8+PHJlY3QgeD0iNCIgd2lkdGg9IjIiIGhlaWdodD0iMTAiIGZpbGw9IiMwMDViYWUiLz48L3N2Zz4=" alt="Ελληνικά">
+                </button>
+            </div>
+
+            <div class="content-en">
+                <h1>Investment Return Calculator</h1>
+                <p class="subtitle">Calculate the return on your investment over time</p>
+            </div>
+            <div class="content-el">
+                <h1>Υπολογιστής Απόδοσης Επένδυσης</h1>
+                <p class="subtitle">Υπολογίστε την απόδοση της επένδυσής σας</p>
+            </div>
+        </header>
+
+        <main>
+            <div class="calculator-container">
+                <div class="formula-display">
+                    <div class="content-en">
+                        Return = (Final Value - Initial Value) / Initial Value
+                    </div>
+                    <div class="content-el">
+                        Απόδοση = (Τελική Αξία - Αρχική Αξία) / Αρχική Αξία
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <div class="content-en">
+                        <label for="initialValue">Initial Investment Value:</label>
+                    </div>
+                    <div class="content-el">
+                        <label for="initialValue">Αρχική Αξία Επένδυσης:</label>
+                    </div>
+                    <input type="number" id="initialValue" min="0" step="0.01" required>
+                </div>
+
+                <div class="input-group">
+                    <div class="content-en">
+                        <label for="finalValue">Final Investment Value:</label>
+                    </div>
+                    <div class="content-el">
+                        <label for="finalValue">Τελική Αξία Επένδυσης:</label>
+                    </div>
+                    <input type="number" id="finalValue" min="0" step="0.01" required>
+                </div>
+
+                <div class="content-en">
+                    <button onclick="calculateReturn()">Calculate Return</button>
+                </div>
+                <div class="content-el">
+                    <button onclick="calculateReturn()">Υπολογισμός Απόδοσης</button>
+                </div>
+
+                <div class="result" id="result">
+                    <!-- Results will be displayed here -->
+                </div>
+            </div>
+        </main>
+
+        <footer>
+            <div class="content-en">
+                <p>&copy; 2025 LoXri. Educational Project.</p>
+            </div>
+            <div class="content-el">
+                <p>&copy; 2025 LoXri. Εκπαιδευτικό Έργο.</p>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        function calculateReturn() {
+            const initialValue = parseFloat(document.getElementById('initialValue').value);
+            const finalValue = parseFloat(document.getElementById('finalValue').value);
+            
+            if (isNaN(initialValue) || isNaN(finalValue)) {
+                const errorMessage = document.documentElement.lang === 'el' 
+                    ? 'Παρακαλώ συμπληρώστε όλα τα πεδία με έγκυρους αριθμούς.'
+                    : 'Please fill in all fields with valid numbers.';
+                document.getElementById('result').innerHTML = `<p class="error">${errorMessage}</p>`;
+                return;
+            }
+            
+            if (initialValue <= 0) {
+                const errorMessage = document.documentElement.lang === 'el'
+                    ? 'Η αρχική αξία πρέπει να είναι μεγαλύτερη από 0.'
+                    : 'Initial value must be greater than 0.';
+                document.getElementById('result').innerHTML = `<p class="error">${errorMessage}</p>`;
+                return;
+            }
+
+            const returnValue = (finalValue - initialValue) / initialValue;
+            const returnPercentage = returnValue * 100;
+
+            const resultHTML = document.documentElement.lang === 'el'
+                ? `
+                    <h3>Αποτελέσματα:</h3>
+                    <p>Απόδοση: ${returnPercentage.toFixed(2)}%</p>
+                    <p>Συνολικό Κέρδος/Ζημία: ${(finalValue - initialValue).toFixed(2)} €</p>
+                `
+                : `
+                    <h3>Results:</h3>
+                    <p>Return: ${returnPercentage.toFixed(2)}%</p>
+                    <p>Total Gain/Loss: ${(finalValue - initialValue).toFixed(2)} €</p>
+                `;
+
+            document.getElementById('result').innerHTML = resultHTML;
+        }
+
+        function switchLanguage(lang) {
+            document.body.setAttribute('data-lang', lang);
+            
+            document.querySelectorAll('.language-btn').forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.title.toLowerCase().includes(lang === 'el' ? 'ελληνικά' : 'english')) {
+                    btn.classList.add('active');
+                }
+            });
+
+            localStorage.setItem('preferred-language', lang);
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const preferredLang = localStorage.getItem('preferred-language');
+            if (preferredLang) {
+                switchLanguage(preferredLang);
+            }
+        });
+    </script>
+</body>
+</html>
