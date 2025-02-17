@@ -4,26 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Investment Return Calculator - LoXri</title>
-    <link rel="stylesheet" href="../css/style.css">
-    <style>
-        .formula-display {
-            background-color: #f8f9fa;
-            padding: 15px;
-            border-radius: 8px;
-            margin: 20px 0;
-            font-family: monospace;
-            text-align: center;
-        }
-        
-        .error {
-            color: #dc3545;
-            margin-top: 10px;
-        }
-    </style>
+    <link rel="stylesheet" href="styles/calculator.css">
 </head>
 <body data-lang="en">
     <div class="container">
         <header>
+            <a href="../index.html" class="back-home">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M19 12H5M12 19l-7-7 7-7"/>
+                </svg>
+                <span class="content-en">Back to Home</span>
+                <span class="content-el">Επιστροφή</span>
+            </a>
+
             <div class="language-switch">
                 <button class="language-btn active" onclick="switchLanguage('en')" title="English">
                     <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2MCAzMCI+PHJlY3Qgd2lkdGg9IjYwIiBoZWlnaHQ9IjMwIiBmaWxsPSIjMDAyNDdkIi8+PHBhdGggZD0iTTAsMGw2MCwzMG0wLTMwTDAsMzAiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLXdpZHRoPSI2Ii8+PHBhdGggZD0iTTAsMGw2MCwzMG0wLTMwTDAsMzAiIHN0cm9rZT0iI2NmMTQyYiIgc3Ryb2tlLXdpZHRoPSIyIi8+PHBhdGggZD0iTTMwLDBWMzBNMCwxNWg2MCIgc3Ryb2tlPSIjZmZmIiBzdHJva2Utd2lkdGg9IjEwIi8+PHBhdGggZD0iTTMwLDBWMzBNMCwxNWg2MCIgc3Ryb2tlPSIjY2YxNDJiIiBzdHJva2Utd2lkdGg9IjYiLz48L3N2Zz4=" alt="English">
@@ -47,41 +40,61 @@
             <div class="calculator-container">
                 <div class="formula-display">
                     <div class="content-en">
-                        Return = (Final Value - Initial Value) / Initial Value
+                        Return = (Final Value - Initial Value) / Initial Value × 100%
                     </div>
                     <div class="content-el">
-                        Απόδοση = (Τελική Αξία - Αρχική Αξία) / Αρχική Αξία
+                        Απόδοση = (Τελική Αξία - Αρχική Αξία) / Αρχική Αξία × 100%
                     </div>
                 </div>
 
                 <div class="input-group">
                     <div class="content-en">
-                        <label for="initialValue">Initial Investment Value:</label>
+                        <label for="initialValue" class="tooltip" data-tooltip="Enter your initial investment amount">
+                            Initial Investment Value (€):
+                        </label>
                     </div>
                     <div class="content-el">
-                        <label for="initialValue">Αρχική Αξία Επένδυσης:</label>
+                        <label for="initialValue" class="tooltip" data-tooltip="Εισάγετε το αρχικό ποσό της επένδυσης">
+                            Αρχική Αξία Επένδυσης (€):
+                        </label>
                     </div>
                     <input type="number" id="initialValue" min="0" step="0.01" required>
                 </div>
 
                 <div class="input-group">
                     <div class="content-en">
-                        <label for="finalValue">Final Investment Value:</label>
+                        <label for="finalValue" class="tooltip" data-tooltip="Enter the final value of your investment">
+                            Final Investment Value (€):
+                        </label>
                     </div>
                     <div class="content-el">
-                        <label for="finalValue">Τελική Αξία Επένδυσης:</label>
+                        <label for="finalValue" class="tooltip" data-tooltip="Εισάγετε την τελική αξία της επένδυσης">
+                            Τελική Αξία Επένδυσης (€):
+                        </label>
                     </div>
                     <input type="number" id="finalValue" min="0" step="0.01" required>
                 </div>
 
-                <div class="content-en">
-                    <button onclick="calculateReturn()">Calculate Return</button>
-                </div>
-                <div class="content-el">
-                    <button onclick="calculateReturn()">Υπολογισμός Απόδοσης</button>
+                <div class="text-center">
+                    <div class="content-en">
+                        <button onclick="calculateReturn()" id="calculateBtn">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M23 12l-4-4v3H5v2h14v3l4-4z"/>
+                            </svg>
+                            Calculate Return
+                        </button>
+                    </div>
+                    <div class="content-el">
+                        <button onclick="calculateReturn()" id="calculateBtn">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M23 12l-4-4v3H5v2h14v3l4-4z"/>
+                            </svg>
+                            Υπολογισμός Απόδοσης
+                        </button>
+                    </div>
                 </div>
 
-                <div class="result" id="result">
+                <div class="result" id="result" style="display: none">
                     <!-- Results will be displayed here -->
                 </div>
             </div>
@@ -99,41 +112,64 @@
 
     <script>
         function calculateReturn() {
+            const calculateBtn = document.getElementById('calculateBtn');
             const initialValue = parseFloat(document.getElementById('initialValue').value);
             const finalValue = parseFloat(document.getElementById('finalValue').value);
+            const resultDiv = document.getElementById('result');
             
-            if (isNaN(initialValue) || isNaN(finalValue)) {
-                const errorMessage = document.documentElement.lang === 'el' 
-                    ? 'Παρακαλώ συμπληρώστε όλα τα πεδία με έγκυρους αριθμούς.'
-                    : 'Please fill in all fields with valid numbers.';
-                document.getElementById('result').innerHTML = `<p class="error">${errorMessage}</p>`;
-                return;
-            }
+            // Add loading state
+            calculateBtn.classList.add('loading');
+            calculateBtn.disabled = true;
             
-            if (initialValue <= 0) {
-                const errorMessage = document.documentElement.lang === 'el'
-                    ? 'Η αρχική αξία πρέπει να είναι μεγαλύτερη από 0.'
-                    : 'Initial value must be greater than 0.';
-                document.getElementById('result').innerHTML = `<p class="error">${errorMessage}</p>`;
-                return;
-            }
+            // Simulate calculation delay
+            setTimeout(() => {
+                if (isNaN(initialValue) || isNaN(finalValue)) {
+                    const errorMessage = document.documentElement.lang === 'el' 
+                        ? 'Παρακαλώ συμπληρώστε όλα τα πεδία με έγκυρους αριθμούς.'
+                        : 'Please fill in all fields with valid numbers.';
+                    resultDiv.innerHTML = `<p class="error">${errorMessage}</p>`;
+                    resultDiv.style.display = 'block';
+                    return;
+                }
+                
+                if (initialValue <= 0) {
+                    const errorMessage = document.documentElement.lang === 'el'
+                        ? 'Η αρχική αξία πρέπει να είναι μεγαλύτερη από 0.'
+                        : 'Initial value must be greater than 0.';
+                    resultDiv.innerHTML = `<p class="error">${errorMessage}</p>`;
+                    resultDiv.style.display = 'block';
+                    return;
+                }
 
-            const returnValue = (finalValue - initialValue) / initialValue;
-            const returnPercentage = returnValue * 100;
+                const returnValue = (finalValue - initialValue) / initialValue;
+                const returnPercentage = returnValue * 100;
+                const isPositive = returnPercentage >= 0;
 
-            const resultHTML = document.documentElement.lang === 'el'
-                ? `
-                    <h3>Αποτελέσματα:</h3>
-                    <p>Απόδοση: ${returnPercentage.toFixed(2)}%</p>
-                    <p>Συνολικό Κέρδος/Ζημία: ${(finalValue - initialValue).toFixed(2)} €</p>
-                `
-                : `
-                    <h3>Results:</h3>
-                    <p>Return: ${returnPercentage.toFixed(2)}%</p>
-                    <p>Total Gain/Loss: ${(finalValue - initialValue).toFixed(2)} €</p>
-                `;
+                const resultHTML = document.documentElement.lang === 'el'
+                    ? `
+                        <h3>Αποτελέσματα:</h3>
+                        <p class="${isPositive ? 'success' : 'error'}">
+                            Απόδοση: ${returnPercentage.toFixed(2)}%
+                        </p>
+                        <p>Συνολικό ${isPositive ? 'Κέρδος' : 'Ζημία'}: ${Math.abs(finalValue - initialValue).toFixed(2)} €</p>
+                    `
+                    : `
+                        <h3>Results:</h3>
+                        <p class="${isPositive ? 'success' : 'error'}">
+                            Return: ${returnPercentage.toFixed(2)}%
+                        </p>
+                        <p>Total ${isPositive ? 'Gain' : 'Loss'}: ${Math.abs(finalValue - initialValue).toFixed(2)} €</p>
+                    `;
 
-            document.getElementById('result').innerHTML = resultHTML;
+                resultDiv.innerHTML = resultHTML;
+                resultDiv.style.display = 'block';
+            }, 500);
+
+            // Remove loading state
+            setTimeout(() => {
+                calculateBtn.classList.remove('loading');
+                calculateBtn.disabled = false;
+            }, 500);
         }
 
         function switchLanguage(lang) {
@@ -154,6 +190,15 @@
             if (preferredLang) {
                 switchLanguage(preferredLang);
             }
+
+            // Add event listeners for Enter key
+            document.querySelectorAll('input').forEach(input => {
+                input.addEventListener('keypress', (e) => {
+                    if (e.key === 'Enter') {
+                        calculateReturn();
+                    }
+                });
+            });
         });
     </script>
 </body>
