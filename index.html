@@ -176,40 +176,40 @@
             <div class="calculator-grid">
                 <div class="calculator-card">
                     <div class="content-en">
+                        <h3>Investment Return Calculator</h3>
+                        <p>Calculate the return on your investment over time. Perfect for measuring investment performance.</p>
+                        <a href="calculators/return.html" class="button">Try Calculator</a>
+                    </div>
+                    <div class="content-el">
+                        <h3>Υπολογιστής Απόδοσης Επένδυσης</h3>
+                        <p>Υπολογίστε την απόδοση της επένδυσής σας. Ιδανικό για τη μέτρηση της απόδοσης των επενδύσεων.</p>
+                        <a href="calculators/return.html" class="button">Δοκιμάστε το</a>
+                    </div>
+                </div>
+
+                <div class="calculator-card">
+                    <div class="content-en">
                         <h3>Compound Interest Calculator</h3>
-                        <p>Calculate how your investments grow over time with compound interest. Perfect for long-term investment planning.</p>
-                        <a href="calculators/compound-interest.html" class="button">Try Calculator</a>
+                        <p>Calculate how your investments grow over time with compound interest.</p>
+                        <a href="calculators/compound-interest.html" class="button">Coming Soon</a>
                     </div>
                     <div class="content-el">
                         <h3>Υπολογιστής Ανατοκισμού</h3>
-                        <p>Υπολογίστε πώς αυξάνονται οι επενδύσεις σας με την πάροδο του χρόνου με ανατοκισμό. Ιδανικό για μακροπρόθεσμο επενδυτικό σχεδιασμό.</p>
-                        <a href="calculators/compound-interest-el.html" class="button">Δοκιμάστε το</a>
+                        <p>Υπολογίστε πώς αυξάνονται οι επενδύσεις σας με την πάροδο του χρόνου με ανατοκισμό.</p>
+                        <a href="calculators/compound-interest.html" class="button">Προσεχώς</a>
                     </div>
                 </div>
 
                 <div class="calculator-card">
                     <div class="content-en">
                         <h3>Loan Calculator</h3>
-                        <p>Calculate your monthly loan payments, total interest, and amortization schedule.</p>
+                        <p>Calculate your monthly loan payments and total interest.</p>
                         <a href="calculators/loan-calculator.html" class="button">Coming Soon</a>
                     </div>
                     <div class="content-el">
                         <h3>Υπολογιστής Δανείου</h3>
-                        <p>Υπολογίστε τις μηνιαίες δόσεις του δανείου σας, τους συνολικούς τόκους και το πρόγραμμα αποπληρωμής.</p>
-                        <a href="calculators/loan-calculator-el.html" class="button">Προσεχώς</a>
-                    </div>
-                </div>
-
-                <div class="calculator-card">
-                    <div class="content-en">
-                        <h3>Savings Calculator</h3>
-                        <p>Plan your savings goals and calculate how much you need to save monthly.</p>
-                        <a href="calculators/savings-calculator.html" class="button">Coming Soon</a>
-                    </div>
-                    <div class="content-el">
-                        <h3>Υπολογιστής Αποταμίευσης</h3>
-                        <p>Σχεδιάστε τους στόχους αποταμίευσής σας και υπολογίστε πόσα χρειάζεται να αποταμιεύετε μηνιαίως.</p>
-                        <a href="calculators/savings-calculator-el.html" class="button">Προσεχώς</a>
+                        <p>Υπολογίστε τις μηνιαίες δόσεις του δανείου σας και τους συνολικούς τόκους.</p>
+                        <a href="calculators/loan-calculator.html" class="button">Προσεχώς</a>
                     </div>
                 </div>
             </div>
@@ -227,10 +227,8 @@
 
     <script>
         function switchLanguage(lang) {
-            // Update body attribute
             document.body.setAttribute('data-lang', lang);
             
-            // Update button states
             document.querySelectorAll('.language-btn').forEach(btn => {
                 btn.classList.remove('active');
                 if (btn.title.toLowerCase().includes(lang === 'el' ? 'ελληνικά' : 'english')) {
@@ -238,11 +236,9 @@
                 }
             });
 
-            // Store language preference
             localStorage.setItem('preferred-language', lang);
         }
 
-        // Load preferred language on page load
         document.addEventListener('DOMContentLoaded', () => {
             const preferredLang = localStorage.getItem('preferred-language');
             if (preferredLang) {
