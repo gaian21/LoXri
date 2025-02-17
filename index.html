@@ -31,6 +31,42 @@
             margin-bottom: 30px;
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
             text-align: center;
+            position: relative;
+        }
+
+        .language-switch {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            display: flex;
+            gap: 10px;
+        }
+
+        .language-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            opacity: 0.7;
+            transition: opacity 0.3s ease;
+            width: 30px;
+            height: 20px;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .language-btn:hover {
+            opacity: 1;
+        }
+
+        .language-btn img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .language-btn.active {
+            opacity: 1;
+            box-shadow: 0 0 0 2px #1a73e8;
         }
 
         h1 {
@@ -90,6 +126,18 @@
             color: #5f6368;
         }
 
+        [lang="el"] {
+            display: none;
+        }
+
+        html[lang="el"] [lang="en"] {
+            display: none;
+        }
+
+        html[lang="el"] [lang="el"] {
+            display: block;
+        }
+
         @media (max-width: 768px) {
             .container {
                 padding: 10px;
@@ -98,41 +146,102 @@
             h1 {
                 font-size: 2em;
             }
+
+            .language-switch {
+                position: relative;
+                top: 0;
+                right: 0;
+                justify-content: center;
+                margin-bottom: 20px;
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
         <header>
-            <h1>LoXri Financial Calculators</h1>
-            <p class="subtitle">Simple and powerful financial calculation tools</p>
+            <div class="language-switch">
+                <button class="language-btn active" onclick="switchLanguage('en')" title="English">
+                    <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2MCAzMCI+PHJlY3Qgd2lkdGg9IjYwIiBoZWlnaHQ9IjMwIiBmaWxsPSIjMDAyNDdkIi8+PHBhdGggZD0iTTAsMGw2MCwzMG0wLTMwTDAsMzAiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLXdpZHRoPSI2Ii8+PHBhdGggZD0iTTAsMGw2MCwzMG0wLTMwTDAsMzAiIHN0cm9rZT0iI2NmMTQyYiIgc3Ryb2tlLXdpZHRoPSIyIi8+PHBhdGggZD0iTTMwLDBWMzBNMCwxNWg2MCIgc3Ryb2tlPSIjZmZmIiBzdHJva2Utd2lkdGg9IjEwIi8+PHBhdGggZD0iTTMwLDBWMzBNMCwxNWg2MCIgc3Ryb2tlPSIjY2YxNDJiIiBzdHJva2Utd2lkdGg9IjYiLz48L3N2Zz4=" alt="English">
+                </button>
+                <button class="language-btn" onclick="switchLanguage('el')" title="Ελληνικά">
+                    <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNyAxOCI+PHJlY3Qgd2lkdGg9IjI3IiBoZWlnaHQ9IjE4IiBmaWxsPSIjMDA1YmFlIi8+PHJlY3QgeT0iMiIgd2lkdGg9IjI3IiBoZWlnaHQ9IjIiIGZpbGw9IiNmZmYiLz48cmVjdCB5PSI2IiB3aWR0aD0iMjciIGhlaWdodD0iMiIgZmlsbD0iI2ZmZiIvPjxyZWN0IHk9IjEwIiB3aWR0aD0iMjciIGhlaWdodD0iMiIgZmlsbD0iI2ZmZiIvPjxyZWN0IHk9IjE0IiB3aWR0aD0iMjciIGhlaWdodD0iMiIgZmlsbD0iI2ZmZiIvPjxyZWN0IHdpZHRoPSIxMCIgaGVpZ2h0PSIxMCIgZmlsbD0iI2ZmZiIvPjxyZWN0IHk9IjQiIHdpZHRoPSIxMCIgaGVpZ2h0PSIyIiBmaWxsPSIjMDA1YmFlIi8+PHJlY3QgeD0iNCIgd2lkdGg9IjIiIGhlaWdodD0iMTAiIGZpbGw9IiMwMDViYWUiLz48L3N2Zz4=" alt="Ελληνικά">
+                </button>
+            </div>
+
+            <div lang="en">
+                <h1>LoXri Financial Calculators</h1>
+                <p class="subtitle">Simple and powerful financial calculation tools</p>
+            </div>
+            <div lang="el">
+                <h1>LoXri Χρηματοοικονομικές Υπολογισμοί</h1>
+                <p class="subtitle">Απλά και ισχυρά εργαλεία χρηματοοικονομικών υπολογισμών</p>
+            </div>
         </header>
         
         <main>
             <div class="calculator-grid">
                 <div class="calculator-card">
-                    <h3>Compound Interest Calculator</h3>
-                    <p>Calculate how your investments grow over time with compound interest. Perfect for long-term investment planning.</p>
-                    <a href="calculators/compound-interest.html" class="button">Try Calculator</a>
+                    <div lang="en">
+                        <h3>Compound Interest Calculator</h3>
+                        <p>Calculate how your investments grow over time with compound interest. Perfect for long-term investment planning.</p>
+                        <a href="calculators/compound-interest.html" class="button">Try Calculator</a>
+                    </div>
+                    <div lang="el">
+                        <h3>Υπολογιστής Ανατοκισμού</h3>
+                        <p>Υπολογίστε πώς αυξάνονται οι επενδύσεις σας με την πάροδο του χρόνου με ανατοκισμό. Ιδανικό για μακροπρόθεσμο επενδυτικό σχεδιασμό.</p>
+                        <a href="calculators/compound-interest-el.html" class="button">Δοκιμάστε το</a>
+                    </div>
                 </div>
 
                 <div class="calculator-card">
-                    <h3>Loan Calculator</h3>
-                    <p>Calculate your monthly loan payments, total interest, and amortization schedule.</p>
-                    <a href="calculators/loan-calculator.html" class="button">Coming Soon</a>
+                    <div lang="en">
+                        <h3>Loan Calculator</h3>
+                        <p>Calculate your monthly loan payments, total interest, and amortization schedule.</p>
+                        <a href="calculators/loan-calculator.html" class="button">Coming Soon</a>
+                    </div>
+                    <div lang="el">
+                        <h3>Υπολογιστής Δανείου</h3>
+                        <p>Υπολογίστε τις μηνιαίες δόσεις του δανείου σας, τους συνολικούς τόκους και το πρόγραμμα αποπληρωμής.</p>
+                        <a href="calculators/loan-calculator-el.html" class="button">Προσεχώς</a>
+                    </div>
                 </div>
 
                 <div class="calculator-card">
-                    <h3>Savings Calculator</h3>
-                    <p>Plan your savings goals and calculate how much you need to save monthly.</p>
-                    <a href="calculators/savings-calculator.html" class="button">Coming Soon</a>
+                    <div lang="en">
+                        <h3>Savings Calculator</h3>
+                        <p>Plan your savings goals and calculate how much you need to save monthly.</p>
+                        <a href="calculators/savings-calculator.html" class="button">Coming Soon</a>
+                    </div>
+                    <div lang="el">
+                        <h3>Υπολογιστής Αποταμίευσης</h3>
+                        <p>Σχεδιάστε τους στόχους αποταμίευσής σας και υπολογίστε πόσα χρειάζεται να αποταμιεύετε μηνιαίως.</p>
+                        <a href="calculators/savings-calculator-el.html" class="button">Προσεχώς</a>
+                    </div>
                 </div>
             </div>
         </main>
 
         <footer>
-            <p>&copy; 2025 LoXri. Educational Project.</p>
+            <div lang="en">
+                <p>&copy; 2025 LoXri. Educational Project.</p>
+            </div>
+            <div lang="el">
+                <p>&copy; 2025 LoXri. Εκπαιδευτικό Έργο.</p>
+            </div>
         </footer>
     </div>
+
+    <script>
+        function switchLanguage(lang) {
+            document.documentElement.lang = lang;
+            document.querySelectorAll('.language-btn').forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.title.toLowerCase().includes(lang === 'el' ? 'ελληνικά' : 'english')) {
+                    btn.classList.add('active');
+                }
+            });
+        }
+    </script>
 </body>
 </html>
